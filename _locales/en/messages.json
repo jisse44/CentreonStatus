@@ -1,0 +1,213 @@
+{
+  "appName": {
+    "message": "Centreon Status",
+    "description": "A simple extension that helps you watch over your Centreon instance."
+  },
+
+  "appDesc": {
+    "message": "Displays the Centreon status in a popup.",
+    "description": "A simple extension that helps you watch over your Centreon instance."
+  },
+
+  "appTitle": {
+    "message": "Centreon Status"
+  },
+
+  "sun": { "message": "Sun" },
+  "mon": { "message": "Mon" },
+  "tue": { "message": "Tue" },
+  "wed": { "message": "Wed" },
+  "thu": { "message": "Thu" },
+  "fri": { "message": "Fri" },
+  "sat": { "message": "Sat" },
+  "sunday":    { "message": "Sunday" },
+  "monday":    { "message": "Monday" },
+  "tuesday":   { "message": "Tuesday" },
+  "wednesday": { "message": "Wednesday" },
+  "thursday":  { "message": "Thursday" },
+  "friday":    { "message": "Friday" },
+  "saturday":  { "message": "Saturday" },
+
+  "jan": { "message": "Jan" },
+  "feb": { "message": "Feb" },
+  "mar": { "message": "Mar" },
+  "apr": { "message": "Apr" },
+  "may": { "message": "May" },
+  "jun": { "message": "Jun" },
+  "jul": { "message": "Jul" },
+  "aug": { "message": "Aug" },
+  "sep": { "message": "Sep" },
+  "oct": { "message": "Oct" },
+  "nov": { "message": "Nov" },
+  "dec": { "message": "Dec" },
+  "january":   { "message": "January" },
+  "february":  { "message": "February" },
+  "march":     { "message": "March" },
+  "april":     { "message": "April" },
+  "may":       { "message": "May" },
+  "june":      { "message": "June" },
+  "july":      { "message": "July" },
+  "august":    { "message": "August" },
+  "september": { "message": "September" },
+  "october":   { "message": "October" },
+  "november":  { "message": "November" },
+  "december":  { "message": "December" },
+
+  "need_setup": {
+    "message": "You need to setup <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">setup this extension</a> first."
+  },
+  "bad_auth": {
+    "message": "Authentication failed. Please check your <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">login credentials</a>."
+  },
+  "bad_url": {
+    "message": "The defined URL does not exist. Please setup the <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">correct URL</a>."
+  },
+  "login_in_progress": {
+    "message": "Please wait, login in progress"
+  },
+  "bad_session": {
+    "message": "The current session is invalid. Will try to re-login."
+  },
+  "unknown_error": {
+    "message": "Unknown error. Please review your <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">configuration</a>."
+  },
+  "no_data": {
+    "message": "Please wait, data not ready yet."
+  },
+
+  "options": {
+    "message": "Options"
+  },
+  "main": {
+    "message": "Main"
+  },
+  "username": {
+    "message": "Username"
+  },
+  "password": {
+    "message": "Password"
+  },
+  "password_remark": {
+    "message": "(if left empty, the password won't be updated)"
+  },
+  "centreon_url": {
+    "message": "Centreon URL"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "broker": {
+    "message": "Broker"
+  },
+  "opt_broker": { "message": "Centreon Broker" },
+  "opt_ndo":    { "message": "NDOUtils" },
+  "date_format": {
+    "message": "Date Format"
+  },
+  "pre_defined": {
+    "message": "(pre-defined)"
+  },
+  "default": {
+    "message": "Default"
+  },
+  "opt_shortdate":      { "message": "Short Date" },
+  "opt_mediumdate":     { "message": "Medium Date" },
+  "opt_longdate":       { "message": "Long Date" },
+  "opt_fulldate":       { "message": "Full Date" },
+  "opt_shorttime":      { "message": "Short Time" },
+  "opt_mediumtime":     { "message": "Medium Time" },
+  "opt_longtime":       { "message": "Long Time" },
+  "opt_isodate":        { "message": "ISO Date" },
+  "opt_isotime":        { "message": "ISO Time" },
+  "opt_isodatetime":    { "message": "ISO Date Time" },
+  "opt_isoutcdatetime": { "message": "ISO UTC Date Time" },
+  "custom": {
+    "message": "(custom)"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "options_save": {
+    "message": "Options Saved."
+  },
+  "contribute": {
+    "message": "If you wish to contribute, please submit ideas, bug reports or patches to $APP_NAME$ support.",
+    "placeholders": {
+      "app_name": {
+        "content": "<a href=\"mailto:centreon-status@morgado.ch\">Centreon Status</a>"
+      }
+    }
+  },
+  "rate": {
+    "message": "Rate $APP_NAME$ on Chrome Webstore.",
+    "placeholders": {
+      "app_name": {
+        "content": "<a href=\"https://chrome.google.com/webstore/detail/jdpjdebckgkpailbnjhgjafagmkgdkhb\">Centreon Status</a>"
+      }
+    }
+  },
+
+  "overview": {
+    "message": "Overview"
+  },
+  "about": {
+    "message": "About"
+  },
+  "aboutapp": {
+    "message": "Centreon Status is a simple extension for Google Chrome&#8482; that helps you watch over your Centreon instance."
+  },
+  "license": {
+    "message": "This software is provided &quot;AS IS&quot;, without warranty of any kind, express or implied, including but
+    not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no
+    event shall the authors or copyright holders be liabe for any claim, damages or other liability, whether in an
+    action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or
+    other daelings in the software."
+  },
+  "author": {
+    "message": "$COPYRIGHT$, $AUTHOR$ (based on Icinga Chrome Status extension).",
+    "placeholders": {
+      "copyright": {
+        "content": "&copy;2014"
+      },
+      "author": {
+        "content": "<a class=\"ext\" href=\"mailto:centreon-status@morgado.ch\">Jorge Morgado</a>"
+      }
+    }
+  },
+
+  "poller_states": {
+    "message": "Pollers States"
+  },
+  "last_update": {
+    "message": "Last updated on "
+  },
+  "host_states":    { "message": "Hosts Status" },
+  "service_states": { "message": "Services Status" },
+  "hosts":    { "message": "Hosts" },
+  "services": { "message": "Services" },
+  "up":          { "message": "Up" },
+  "down":        { "message": "Down" },
+  "unreachable": { "message": "Unreachable" },
+  "pending":     { "message": "Pending" },
+  "ok":          { "message": "Ok" },
+  "warning":     { "message": "Warning" },
+  "critical":    { "message": "Critical" },
+  "unknown":     { "message": "Unknown" },
+  "pending":     { "message": "Pending" },
+
+  "all_ok": {
+    "message": "Everything is OK"
+  },
+  "check_pollers": {
+    "message": "Please check the Pollers states"
+  },
+  "check_hosts": {
+    "message": "Please check the Hosts status"
+  },
+  "check_services": {
+    "message": "Please check this Services status"
+  },
+  "check_hosts_services": {
+    "message": "Please check the Hosts and Services status"
+  }
+}

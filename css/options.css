@@ -1,0 +1,72 @@
+/**
+ * options.css
+ *
+ * Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license).
+ */
+
+#options, #options-footer div {
+  max-width: 600px;
+  margin: 0px auto;
+}
+
+#options {
+  min-height: 150px;
+}
+
+#options-body {
+  background: #fdfdfd;
+  margin: 0px; padding: 0px;
+}
+
+#options-body h1 {
+  background: black;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3C3C3C), to(#111));
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+#options-body #options-footer {
+  margin-top: 30px;
+  font-size: 11px;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#619622), to(#fdfdfd));
+  padding: 10px;
+  height: 100px;
+  float: justify;
+  text-align: left;
+}
+
+.opt {
+  margin-top: 5px;
+}
+
+#options div.opt a {
+  color: navy;
+}
+#options div.opt a:hover {
+  color: red;
+}
+
+body#options-body label {
+  display: block;
+  float: left;
+  width: 110px;
+  position: relative;
+  top: 3px;
+}
+
+#tab-1.options div {
+  height: 33px;
+}
+
+.ui-tabs {
+  border: 0px !important;
+}
+
+button.save {
+  margin: 10px;
+}
+
+#status {
+  color: green;
+}

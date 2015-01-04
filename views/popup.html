@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license). -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="/js/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/centreon.css" rel="stylesheet" type="text/css"/>
+  <script src="/js/util.js"></script>
+  <script src="/js/jquery/jquery-2.1.0.min.js"></script>
+  <script src="/js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+  <script src="/js/centreon.js"></script>
+  <script src="/js/popup.js"></script>
+  <script src="/js/dateformat.js"></script>
+  <script src="/js/jquery/jquery.lazyload.min.js" type="text/javascript"></script>
+</head>
+<body id="popup">
+<a class="uglyhack" href="#">&nbsp;</a>
+<a title="Refresh data" id="refresh-data" href="#" border="0"></a>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tab-1"><span id="span-overview">Overview</span></a></li>
+    <!--li><a href="#tab-2"><span>Unhandled Problems</span></a></li-->
+    <!--li><a href="#tab-3"><span>All Problems</span></a></li-->
+    <!--li><a href="#tab-4"><span>All Services</span></a></li-->
+    <li><a href="#tab-5"><span id="span-about">About</span></a></li>
+  </ul>
+
+  <div id="tab-1">
+    <div id="output"></div>
+  </div>
+  <!--div id="tab-2">
+    <h3>Unhandled Problems</h3>
+    <div id="outputUnhandledProblems"></div>
+  </div-->
+  <!--div id="tab-3">
+    <h3>All Problems</h3>
+    <div id="outputAllProblems"></div>
+  </div-->
+  <!--div id="tab-4">
+    <h3>All Services</h3>
+    <div id="outputAllServices"></div>
+  </div-->
+  <div id="tab-5">
+    <h3 id="h-title">Centreon Status</h3>
+    <p id="p-about"><strong></strong></p>
+    <p id="p-license"></p>
+    <p id="p-author"></p>
+  </div>
+</div>
+
+<div id="footer">
+  <div id="footer-buttons">
+    <a class="ext" href="options.html" id="a-options">Options</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+/**
+ * centreon.css
+ *
+ * Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license).
+ */
+
+body {
+  font-family: Arial,Verdana,sans-serif;
+  font-size: 10px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#states td {
+  text-align: left;
+}
+#totals td {
+  text-align: center;
+}
+
+h3 {
+  margin: 0px 0px 3px 0px;
+}
+
+.head   { background: #707677; color: white; }
+.ok     { background: #00cc33; color: white; }
+.crit   { background: #ff3300; color: white; }
+.unrc   { background: #82cfd8; color: black; }
+.pend   { background: #2ad1d4; color: black; }
+.unkn   { background: #dcdada; color: black; }
+.warn   { background: #ffa500; color: white; }
+.normal { background: #e9e9e9; color: black; float: center; }
+
+.center {
+  text-align: center;
+}
+
+.ui-tabs {
+  border: 0px !important;
+}
+
+a#refresh-data {
+  position: absolute;
+  top: 9px;
+  right: 20px;
+  z-index: 1000;
+  width: 16px;
+  height: 17px;
+  background: url("/images/reload.png") no-repeat;
+}
+
+#footer {
+  font-family: Arial, Verdana, sans-serif;
+  text-align: right;
+  margin-top: 0px;
+  padding: 10px;
+  padding-top: 15px;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fdfdfd), to(#619622));
+}
+
+#footer a {
+  color: black;
+}
+
+#footer a:hover {
+  color: navy;
+}
+
+/* ugly hack.. I'm receiving orange border arround fist <a> with href and
+   I don't know why. So this is temp solution. */
+a.uglyhack {
+  width: 1px; height: 1px;
+  position: absolute;
+  top: -20px;
+}
+
+#crit { background: url('/images/crit.png') no-repeat; }
+#warn { background: url('/images/warn.png') no-repeat; }
+#unrc { background: url('/images/unrc.png') no-repeat; }
+#unkn { background: url('/images/unkn.png') no-repeat; }
+#ok   { background: url('/images/ok.png') no-repeat; }
+#crit, #warn, #unrc, #unkn, #ok {
+  padding-left: 40px;
+  font-weight: bold;
+  line-height: 26px;
+  margin-top: 5px;
+}
+
+body#popup {
+  min-width: 380px;
+}

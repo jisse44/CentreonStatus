@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license). -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title id="title-options"></title>
+  <link href="/js/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/centreon.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/options.css" rel="stylesheet" type="text/css"/>
+  <script src="/js/util.js"></script>
+  <script src="/js/jquery/jquery-2.1.0.min.js"></script>
+  <script src="/js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+  <script src="/js/options.js" type="text/javascript"></script>
+  <script src="/js/jquery/jquery.lazyload.min.js" type="text/javascript"></script>
+</head>
+<body id="options-body">
+<h1 id="h-options">Centreon Status - Options</h1>
+
+<div id="options">
+  <div id="tabs">
+    <ul>
+      <li><a href="#tab-1"><span id="span-main">Main</span></a></li>
+      <li><a href="#tab-2"><span id="">Advanced</span></a></li>
+    </ul>
+
+    <div id="tab-1" class="options">
+      <div style="height: 30px;">
+        <label for="username" id="label-username">Username</label> <input type="text" name="username" id="username" placeholder="Username" style="width: 150px;"/>
+      </div>
+      <div style="height: 30px;">
+        <label for="password" id="label-password">Password</label> <input type="password" name="password" id="password" style="width: 150px;"/> <cite id="cite-password"></cite>
+      </div>
+      <div style="height: 30px;">
+        <label for="url" id="label-url">Centreon URL</label> <input type="text" placeholder="e.g., https://server.domain.com/centreon/" name="url" id="url" style="width: 400px;"/>
+      </div>
+      <div style="height: 30px;">
+        <label for="refresh" id="label-refresh">Refresh</label> <input type="range" min="5" max="600" name="refresh" id="refresh" style="width: 300px;"/> <span id="refrsecs">&nbsp;</span>
+      </div>
+    </div> <!-- end of tab-1 -->
+
+    <div id="tab-2" class="options">
+      <div style="height: 30px;">
+        <label for="broker" id="label-broker">Broker</label>
+        <select name="broker" id="broker" style="width: 150px;">
+          <option value="broker" id="opt-broker" selected>Centreon Broker</option>
+          <option value="ndo" id="opt-ndo">NDOUtils</option>
+        </select>
+      </div>
+      <div style="height: 30px;">
+        <label for="dateformat" id="label-dateformat">Date Format</label> <input type="radio" name="dateformat" id="datedefine" checked/>
+        <select name="select-dateformat" id="select-dateformat" style="width: 290px;">
+          <option value="default" id="opt-defaultdate" selected>Default</option>
+          <option value="shortDate" id="opt-shortdate">Short Date</option>
+          <option value="mediumDate" id="opt-mediumdate">Medium Date</option>
+          <option value="longDate" id="opt-longdate">Long Date</option>
+          <option value="fullDate" id="opt-fulldate">Full Date</option>
+          <option value="shortTime" id="opt-shorttime">Short Time</option>
+          <option value="mediumTime" id="opt-mediumtime">Medium Time</option>
+          <option value="longTime" id="opt-longtime">Long Time</option>
+          <option value="isoDate" id="opt-isodate">ISO Date</option>
+          <option value="isoTime" id="opt-isotime">ISO Time</option>
+          <option value="isoDateTime" id="opt-isodatetime">ISO Date Time</option>
+          <option value="isoUtcDateTime" id="opt-isoutcdatetime">ISO UTC Date Time</option>
+        </select> <cite id="cite-predefined">Pre-defined</cite>
+      </div>
+      <div style="height: 30px;">
+        <label for="empty">&nbsp;</label> <input type="radio" name="dateformat" id="datecustom"/> <input type="text" name="input-dateformat" id="input-dateformat" style="width: 290px"/> <cite id="cite-custom">Custom</cite>
+      </div>
+    </div> <!-- end of tab-2 -->
+
+  </div> <!-- end of tabs -->
+  <button class="save" id="button-save">Save</button>
+  <span id="status"></span>
+
+  <div id="options-footer">
+    <div>
+      <h2 id="h-footer">Centreon Status</h2>
+      <p id="p-contribute"></p>
+      <p id="p-rate"></p>
+    </div>
+  </div>
+</div> <!-- end of options -->
+</body>
+</html>
