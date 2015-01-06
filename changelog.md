@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.0.2 - 05. 01. 2015
+--------------------
+* Fix 'en' locale string typos and improve translation
+* Fix 'unhandled/total' counters for critical, warning and unknown
+* Display a clear badge if status is 'ok'. Only show counters if != 'ok'
+* Set counter overflow at > 99 (in this case, simply display '99+')
+* Add a flag to also include the unhandled services in the reported totals
+
 0.0.1 - 01. 01. 2015
 --------------------
 * Locale support
