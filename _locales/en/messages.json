@@ -54,7 +54,7 @@
   "december":  { "message": "December" },
 
   "need_setup": {
-    "message": "You need to setup <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">setup this extension</a> first."
+    "message": "You need to <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">setup this extension</a> first."
   },
   "bad_auth": {
     "message": "Authentication failed. Please check your <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">login credentials</a>."
@@ -74,6 +74,9 @@
   "no_data": {
     "message": "Please wait, data not ready yet."
   },
+
+  "fail": { "message": "ERR" },
+  "wait": { "message": ". . ." },
 
   "options": {
     "message": "Options"
@@ -104,9 +107,6 @@
   "date_format": {
     "message": "Date Format"
   },
-  "pre_defined": {
-    "message": "(pre-defined)"
-  },
   "default": {
     "message": "Default"
   },
@@ -122,7 +122,13 @@
   "opt_isodatetime":    { "message": "ISO Date Time" },
   "opt_isoutcdatetime": { "message": "ISO UTC Date Time" },
   "custom": {
-    "message": "(custom)"
+    "message": "(used defined)"
+  },
+  "add_handled": {
+    "message": "Add Handled"
+  },
+  "add_handled_remark": {
+    "message": "(if checked, acknowledge and in-downtime services will be included)"
   },
   "save": {
     "message": "Save"
@@ -167,7 +173,7 @@
     "message": "$COPYRIGHT$, $AUTHOR$ (based on Icinga Chrome Status extension).",
     "placeholders": {
       "copyright": {
-        "content": "&copy;2014"
+        "content": "&copy;2014, 2015"
       },
       "author": {
         "content": "<a class=\"ext\" href=\"mailto:centreon-status@morgado.ch\">Jorge Morgado</a>"
@@ -199,15 +205,15 @@
     "message": "Everything is OK"
   },
   "check_pollers": {
-    "message": "Please check the Pollers states"
+    "message": "Check Pollers states"
   },
   "check_hosts": {
-    "message": "Please check the Hosts status"
+    "message": "Check Hosts status"
   },
   "check_services": {
-    "message": "Please check this Services status"
+    "message": "Check Services status"
   },
   "check_hosts_services": {
-    "message": "Please check the Hosts and Services status"
+    "message": "Check Hosts and Services status"
   }
 }
