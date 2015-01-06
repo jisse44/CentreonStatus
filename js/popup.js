@@ -64,9 +64,9 @@ function show() {
         + '</td></tr><tr>'
         + '<td class="normal">'    + response.svc_total
         + '</td><td class="ok">'   + response.svc_ok
-        + '</td><td class="warn">' + response.svc_warn + '/' + response.svc_warnu
-        + '</td><td class="crit">' + response.svc_crit + '/' + response.svc_critu
-        + '</td><td class="unkn">' + response.svc_unkn + '/' + response.svc_unknu
+        + '</td><td class="warn">' + response.svc_warnu + '/' + response.svc_warn
+        + '</td><td class="crit">' + response.svc_critu + '/' + response.svc_crit
+        + '</td><td class="unkn">' + response.svc_unknu + '/' + response.svc_unkn
         + '</td><td class="pend">' + response.svc_pend
         + '</td></tr></table></div><br/>'
       // Final status summary string
