@@ -52,9 +52,11 @@ function save_options() {
       window.localStorage.dateformat = id('select-dateformat').value;
     }
 
+    window.localStorage.addHandled = (id("add-handled").checked === true);
+
     // Update status to let user know the options were saved
     var status = id('status');
-    status.innerHTML = i18n('options_save');;
+    status.innerHTML = i18n('options_save');
     setTimeout(function() {
       status.innerHTML = '';
     }, 750);
@@ -93,6 +95,8 @@ function restore_options() {
     if (window.localStorage.dateformat != undefined)
       id('select-dateformat').selectedIndex = DATE_FORMAT[window.localStorage.dateformat] || 0;
   }
+
+  id("add-handled").checked = (window.localStorage.addHandled === "true");
 }
 
 /**
@@ -116,7 +120,6 @@ $(document).ready(function() {
   id('opt-broker').innerHTML         = i18n("opt_broker");
   id('opt-ndo').innerHTML            = i18n("opt_ndo");
   id('label-dateformat').innerHTML   = i18n('date_format');
-  id('cite-predefined').innerHTML    = i18n('pre_defined');
   id('opt-defaultdate').innerHTML    = i18n('default')            + " (ddd mmm dd yyyy HH:MM:ss)";
   id('opt-shortdate').innerHTML      = i18n('opt_shortdate')      + " (m/d/yy)";
   id('opt-mediumdate').innerHTML     = i18n('opt_mediumdate')     + " (mmm d, yyyy)";
@@ -130,6 +133,8 @@ $(document).ready(function() {
   id('opt-isodatetime').innerHTML    = i18n('opt_isodatetime')    + " (yyyy-mm-dd'T'HH:MM:ss)";
   id('opt-isoutcdatetime').innerHTML = i18n('opt_isoutcdatetime') + " (UTC:yyyy-mm-dd'T'HH:MM:ss'Z')";
   id('cite-custom').innerHTML        = i18n('custom');
+  id('label-add-handled').innerHTML  = i18n('add_handled');
+  id('cite-add-handled').innerHTML   = i18n('add_handled_remark');
   id('button-save').innerHTML        = i18n('save');
   id('h-footer').innerHTML           = i18n('appTitle');
   id('p-contribute').innerHTML       = i18n('contribute');

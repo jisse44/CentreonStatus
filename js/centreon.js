@@ -28,11 +28,12 @@ const SVC_UNKNU = 6;
 const SVC_WARNU = 7;
 const SVC_CRITU = 8;
 
-function Centreon(ts) {
-  this.ts       = ts || (new Date().getTime() / 1000);
-  this.message  = '';
-  this.status   = 'ok';
-  this.count    = 0;
+function Centreon(ts, addHandled) {
+  this.ts         = ts || (new Date().getTime() / 1000);
+  this.addHandled = addHandled || false;
+  this.message    = '';
+  this.status     = 'ok';
+  this.count      = 0;
 
   this.pollers  = {
     POLLER_STATE:      0,
@@ -91,21 +92,37 @@ function Centreon(ts) {
   }
 
   this.setStatus = function() {
+    // If should include handled services (acknowledged and in-downtime)
+    if (this.addHandled) {
+      // Then, the real value is the whole total
+      svc_unkn = SVC_UNKN;
+      svc_warn = SVC_WARN;
+      svc_crit = SVC_CRIT;
+    } else {
+      // Otherwise, the real value the unhandled
+      svc_unkn = SVC_UNKNU;
+      svc_warn = SVC_WARNU;
+      svc_crit = SVC_CRITU;
+    }
+
     // Critical status: host(s) down, service(s) critical or pollers critical
-    if (this.hosts[HOST_DOWN] > 0 || this.services[SVC_CRIT] > 0) {
+    if (this.hosts[HOST_DOWN] > 0 || this.services[svc_crit] > 0) {
       this.message = i18n('check_hosts_services');
       this.status  = 'crit';
-      this.count   = this.hosts[HOST_DOWN] + this.services[SVC_CRIT];
+      // Only show the hosts count if HOST_DOWN > 0 - the assumption is that
+      // if a host is down, likely some or all of its services will be down
+      // too, thus it doesn't make sense to include this value as well.
+      this.count   = this.hosts[HOST_DOWN] || this.services[svc_crit];
     } else if (this.pollers[POLLER_STATE] == 2 || this.pollers[POLLER_LATENCY] == 2 || this.pollers[POLLER_ACTIVE] == 2) {
       this.message = i18n('check_pollers');
       this.status  = 'crit';
       this.count   = 1;
 
     // Warning status: service(s) warning or pollers warning
-    } else if (this.services[SVC_WARN] > 0) {
+    } else if (this.services[svc_warn]  > 0) {
       this.message = i18n('check_services');
       this.status  = 'warn';
-      this.count   = this.services[SVC_WARN];
+      this.count   = this.services[svc_warn] ;
     } else if (this.pollers[POLLER_STATE] == 1 || this.pollers[POLLER_LATENCY] == 1 || this.pollers[POLLER_ACTIVE] == 1) {
       this.message = i18n('check_pollers');
       this.status  = 'warn';
@@ -118,10 +135,12 @@ function Centreon(ts) {
       this.count   = this.hosts[HOST_UNRC];
 
     // Unknown status: host(s) pending or service(s) unknown
-    } else if (this.hosts[HOST_PEND] > 0 || this.services[SVC_UNKN] > 0) {
+    } else if (this.hosts[HOST_PEND] > 0 || this.services[svc_unkn] > 0) {
       this.message = i18n('check_hosts_services');
       this.status  = 'unkn';
-      this.count   = this.hosts[HOST_PEND] + this.services[SVC_UNKN];
+      // Also, only show the hosts count if HOST_PEND > 0 - again, we assume
+      // that if a host is pending, likely its services will also be pending.
+      this.count   = this.hosts[HOST_PEND] || this.services[svc_unkn];
 
     // Anything else is OK
     } else {

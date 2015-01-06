@@ -32,10 +32,10 @@ var bg = {
   },
 
   errorBadge: function() {
-    bg.setBadge('crit', 'FAIL');
+    bg.setBadge('crit', i18n('fail'));
   },
   waitBadge: function() {
-    bg.setBadge('warn', 'WAIT');
+    bg.setBadge('warn', i18n('wait'));
   },
 
   /**
@@ -108,7 +108,10 @@ var bg = {
     }
 
     // Build summary data
-    bg.centreon = new Centreon($filetime.text());
+    bg.centreon = new Centreon(
+      $filetime.text(),
+      (window.localStorage.addHandled === "true")
+    );
 
     bg.centreon.pollerState(
       $pstt.text(),
@@ -228,10 +231,14 @@ var bg = {
             // Set the badge counter
             if (bg.status.error != undefined) {
               (bg.status.state) ? bg.waitBadge() : bg.errorBadge();
-            } else if (bg.centreon == undefined) {
+            } else if (bg.centreon == undefined || bg.centreon.status == 'ok') {
               bg.clearBadge();
             } else {
-              bg.setBadge(bg.centreon.status, bg.centreon.count.toString());
+              bg.setBadge(
+                bg.centreon.status,
+                // On "counter overflow", simply show 99+
+                bg.centreon.count > 99 ? '99+' : bg.centreon.count.toString()
+              );
             }
           },
         error: function(res, status, error) {
