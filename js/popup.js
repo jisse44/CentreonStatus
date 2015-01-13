@@ -31,7 +31,7 @@ function show() {
   chrome.extension.sendRequest({ reqtype: 'get-data' }, function(response) {
     // All is good when state is 'true' and error is not 'undefined'
     if (response.state && !response.error) {
-      var out =
+      var overview =
       // Poller states
           '<div id="states"><h3>' + i18n('poller_states') + '</h3><table>'
         + '<tr><td colspan="2" class="normal">' + i18n('last_update') + convertTimestamp(response.ts)
@@ -70,12 +70,12 @@ function show() {
         + '</td><td class="pend">' + response.svc_pend
         + '</td></tr></table></div><br/>'
       // Final status summary string
-        + '<p id="' + response.status + '">' + response.message + '</p>';
+        + '<p id="' + response.status + '"><a class="external" style="text-decoration: none;" href="'
+        + window.localStorage.url
+        + '">' + response.message + '</a></p>';
 
-      $('#output').html(out);
-      //$('#outputUnhandledProblems').html('');
-      //$('#outputAllProblems').html('');
-      //$('#outputAllServices').html('');
+      $('#outputOverview').html(overview);
+      //$('#outputUnhandled').html('');
     } else {
       debug_log('Received false response from background: ' + response.error);
 
@@ -94,31 +94,29 @@ function show() {
       else
         msg = i18n('no_data');
 
-      $('#output').html(msg);
-      //$('#outputUnhandledProblems').html(msg);
-      //$('#outputAllProblems').html(msg);
-      //$('#outputAllServices').html(msg);
+      $('#outputOverview').html(msg);
+      //$('#outputUnhandled').html(msg);
     }
 
     // Handle links
     $('a.centreon-link').click(function () { goto($(this).data('href')); })
+    $('a.external').click(function() { goto(this.href); });
   });
 }
 
 $(document).ready(function() {
   // Load locale strings
-  id('span-overview').innerHTML = i18n('overview');
-  id('span-about').innerHTML    = i18n('about');
-  id('h-title').innerText       = i18n('appname');
-  id('a-options').innerHTML     = i18n('options');
-  id('p-about').innerHTML       = i18n('aboutapp');
-  id('p-license').innerHTML     = i18n('license');
-  id('p-author').innerHTML      = i18n('author');
+  id('span-overview').innerHTML  = i18n('overview');
+  //id('span-unhandled').innerHTML = i18n('unhandled');
+  id('span-about').innerHTML     = i18n('about');
+  id('h-title').innerText        = i18n('appname');
+  id('a-options').innerHTML      = i18n('options');
+  id('p-about').innerHTML        = i18n('aboutapp');
+  id('p-license').innerHTML      = i18n('license');
+  id('p-author').innerHTML       = i18n('author');
 
   // Show tabs
   $('#tabs').tabs();
-
-  $('a.ext').click(function() { goto(this.href); });
 
   // Draw screen
   show();

@@ -116,7 +116,7 @@ function Centreon(ts, addHandled) {
     } else if (this.pollers[POLLER_STATE] == 2 || this.pollers[POLLER_LATENCY] == 2 || this.pollers[POLLER_ACTIVE] == 2) {
       this.message = i18n('check_pollers');
       this.status  = 'crit';
-      this.count   = 1;
+      this.count   = 'P';
 
     // Warning status: service(s) warning or pollers warning
     } else if (this.services[svc_warn]  > 0) {
@@ -126,7 +126,7 @@ function Centreon(ts, addHandled) {
     } else if (this.pollers[POLLER_STATE] == 1 || this.pollers[POLLER_LATENCY] == 1 || this.pollers[POLLER_ACTIVE] == 1) {
       this.message = i18n('check_pollers');
       this.status  = 'warn';
-      this.count   = 1;
+      this.count   = 'P';
 
     // Unreachable status: host(s) unreachable
     } else if (this.hosts[HOST_UNRC] > 0) {

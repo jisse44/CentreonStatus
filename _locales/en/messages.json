@@ -159,6 +159,9 @@
   "about": {
     "message": "About"
   },
+  "unhandled": {
+    "message": "Unhandled"
+  },
   "aboutapp": {
     "message": "Centreon Status is a simple extension for Google Chrome&#8482; that helps you watch over your Centreon instance."
   },

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.0.3 - 12. 01. 2015
+--------------------
+* Modify logo (icons) to reflect the real application's name
+* Link the status message to Centreon entry page
+* Set badge to 'P' (instead of 1) on poller events
+
 0.0.2 - 05. 01. 2015
 --------------------
 * Fix 'en' locale string typos and improve translation
