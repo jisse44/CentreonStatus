@@ -4,39 +4,60 @@
  * Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license).
  */
 
-body {
+#popup-body {
+  min-width: 380px;
   font-family: Arial,Verdana,sans-serif;
   font-size: 10px;
   padding: 0px;
   margin: 0px;
 }
 
-#states td {
-  text-align: left;
-}
-#totals td {
+h3 { margin: 0px 0px 3px 0px; }
+
+.head a { color: white; text-decoration: none; }
+.head   { background: #707677; color: white; text-align: center; }
+.ok     { background: #00cc33; color: white; text-align: center; }
+.crit   { background: #ff3300; color: white; text-align: center; }
+.unrc   { background: #82cfd8; color: black; text-align: center; }
+.pend   { background: #2ad1d4; color: black; text-align: center; }
+.unkn   { background: #dcdada; color: black; text-align: center; }
+.warn   { background: #ffa500; color: white; text-align: center; }
+
+.warntext { background-color: #ffa500; }
+
+.total  { background: #e9e9e9; color: black; text-align: center; }
+.normal { background: #e9e9e9; color: black; text-align: left; }
+
+.center { text-align: center; }
+.left   { text-align: left; }
+.right  { text-align: right; }
+
+.ui-tabs { border: 0px !important; }
+
+.iconcell {
   text-align: center;
+  width: 1px;
+  white-space: nowrap;
 }
 
-h3 {
-  margin: 0px 0px 3px 0px;
-}
+.list_one       { background-color: #f7faff; }
+.list_one:hover { background-color: #fdf0d5; }
 
-.head   { background: #707677; color: white; }
-.ok     { background: #00cc33; color: white; }
-.crit   { background: #ff3300; color: white; }
-.unrc   { background: #82cfd8; color: black; }
-.pend   { background: #2ad1d4; color: black; }
-.unkn   { background: #dcdada; color: black; }
-.warn   { background: #ffa500; color: white; }
-.normal { background: #e9e9e9; color: black; float: center; }
+.list_two       { background-color: #edf4ff; }
+.list_two:hover { background-color: #fdf0d5; }
 
-.center {
-  text-align: center;
-}
+.list_down       { background-color: #ffb2b2; }
+.list_down:hover { background-color: #ffd1d1; }
 
-.ui-tabs {
-  border: 0px !important;
+/* Make search filter form objects width to 100% of the table's column.
+Although, to avoid that the object will go over the table's cell border
+(which looks ugly), use the CSS3's box-sizing property to include the
+external padding and border. */
+.searchfilter {
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 a#refresh-data {
@@ -58,18 +79,14 @@ a#refresh-data {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fdfdfd), to(#619622));
 }
 
-#footer a {
-  color: black;
-}
-
-#footer a:hover {
-  color: navy;
-}
+#footer a       { color: black; }
+#footer a:hover { color: navy; }
 
 /* ugly hack.. I'm receiving orange border arround fist <a> with href and
    I don't know why. So this is temp solution. */
 a.uglyhack {
-  width: 1px; height: 1px;
+  width: 1px;
+  height: 1px;
   position: absolute;
   top: -20px;
 }
@@ -80,12 +97,20 @@ a.uglyhack {
 #unkn { background: url('/images/unkn.png') no-repeat; }
 #ok   { background: url('/images/ok.png') no-repeat; }
 #crit, #warn, #unrc, #unkn, #ok {
-  padding-left: 40px;
+  padding-left: 35px;
   font-weight: bold;
   line-height: 26px;
   margin-top: 5px;
 }
 
-body#popup {
-  min-width: 380px;
+.clock { content:url('/images/clock.png'); }
+.gear { content:url('/images/gear.png'); }
+.data_into { content:url('/images/data_into.png'); }
+.sortASC { content:url('/images/sort_asc.png'); }
+.sortDESC { content:url('/images/sort_desc.png'); }
+.noloudspeaker { content:url('/images/noloudspeaker.png'); }
+.gears_stop { content:url('/images/gears_stop.png'); }
+
+#status {
+  color: green;
 }

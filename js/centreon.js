@@ -28,12 +28,11 @@ const SVC_UNKNU = 6;
 const SVC_WARNU = 7;
 const SVC_CRITU = 8;
 
-function Centreon(ts, addHandled) {
-  this.ts         = ts || (new Date().getTime() / 1000);
-  this.addHandled = addHandled || false;
-  this.message    = '';
-  this.status     = 'ok';
-  this.count      = 0;
+function Centreon() {
+  this.message = '';
+  this.status  = OK;
+  this.count   = 0;
+  this.svcList = [];
 
   this.pollers  = {
     POLLER_STATE:      0,
@@ -61,6 +60,10 @@ function Centreon(ts, addHandled) {
     SVC_WARNU: 0,
     SVC_CRITU: 0,
   };
+
+  this.setTimestamp = function(ts) {
+    this.ts = ts;
+  }
 
   this.pollerState = function(state, latency, active, errstate, errlatency, erractive) {
     this.pollers[POLLER_STATE]   = parseInt(state);
@@ -91,9 +94,9 @@ function Centreon(ts, addHandled) {
     this.services[SVC_CRITU] = parseInt(critu);
   }
 
-  this.setStatus = function() {
+  this.setStatus = function(addHandled) {
     // If should include handled services (acknowledged and in-downtime)
-    if (this.addHandled) {
+    if (addHandled) {
       // Then, the real value is the whole total
       svc_unkn = SVC_UNKN;
       svc_warn = SVC_WARN;
@@ -108,36 +111,36 @@ function Centreon(ts, addHandled) {
     // Critical status: host(s) down, service(s) critical or pollers critical
     if (this.hosts[HOST_DOWN] > 0 || this.services[svc_crit] > 0) {
       this.message = i18n('check_hosts_services');
-      this.status  = 'crit';
+      this.status  = CRIT;
       // Only show the hosts count if HOST_DOWN > 0 - the assumption is that
       // if a host is down, likely some or all of its services will be down
       // too, thus it doesn't make sense to include this value as well.
       this.count   = this.hosts[HOST_DOWN] || this.services[svc_crit];
     } else if (this.pollers[POLLER_STATE] == 2 || this.pollers[POLLER_LATENCY] == 2 || this.pollers[POLLER_ACTIVE] == 2) {
       this.message = i18n('check_pollers');
-      this.status  = 'crit';
+      this.status  = CRIT;
       this.count   = 'P';
 
     // Warning status: service(s) warning or pollers warning
     } else if (this.services[svc_warn]  > 0) {
       this.message = i18n('check_services');
-      this.status  = 'warn';
+      this.status  = WARN;
       this.count   = this.services[svc_warn] ;
     } else if (this.pollers[POLLER_STATE] == 1 || this.pollers[POLLER_LATENCY] == 1 || this.pollers[POLLER_ACTIVE] == 1) {
       this.message = i18n('check_pollers');
-      this.status  = 'warn';
+      this.status  = WARN;
       this.count   = 'P';
 
     // Unreachable status: host(s) unreachable
     } else if (this.hosts[HOST_UNRC] > 0) {
       this.message = i18n('check_hosts');
-      this.status  = 'unrc';
+      this.status  = UNRC;
       this.count   = this.hosts[HOST_UNRC];
 
     // Unknown status: host(s) pending or service(s) unknown
     } else if (this.hosts[HOST_PEND] > 0 || this.services[svc_unkn] > 0) {
       this.message = i18n('check_hosts_services');
-      this.status  = 'unkn';
+      this.status  = UNKN;
       // Also, only show the hosts count if HOST_PEND > 0 - again, we assume
       // that if a host is pending, likely its services will also be pending.
       this.count   = this.hosts[HOST_PEND] || this.services[svc_unkn];
@@ -145,40 +148,50 @@ function Centreon(ts, addHandled) {
     // Anything else is OK
     } else {
       this.message = i18n('all_ok');
-      this.status  = 'ok';
+      this.status  = OK;
       this.count   = this.services[SVC_OK];
     }
   }
 
+  this.emptyServices = function() {
+    this.svcList.length = 0;
+  }
+
+  this.addService = function(row) {
+    this.svcList.push(row);
+  }
+
   this.toJSON = function() {
     return {
-      ts:      this.ts,
+      ts:      this.ts || (new Date().getTime() / 1000),
       message: this.message,
       status:  this.status,
       count:   this.count,
 
-      poller_state:      this.pollers[POLLER_STATE],
-      poller_latency:    this.pollers[POLLER_LATENCY],
-      poller_active:     this.pollers[POLLER_ACTIVE],
-      poller_errstate:   this.pollers[POLLER_ERRSTATE],
-      poller_errlatency: this.pollers[POLLER_ERRLATENCY],
-      poller_erractive:  this.pollers[POLLER_ERRACTIVE],
+      pollerState:      this.pollers[POLLER_STATE],
+      pollerLatency:    this.pollers[POLLER_LATENCY],
+      pollerActive:     this.pollers[POLLER_ACTIVE],
+      pollerErrState:   this.pollers[POLLER_ERRSTATE],
+      pollerErrLatency: this.pollers[POLLER_ERRLATENCY],
+      pollerErrActive:  this.pollers[POLLER_ERRACTIVE],
 
-      host_total: this.hosts[HOST_TOTAL],
-      host_up:    this.hosts[HOST_UP],
-      host_pend:  this.hosts[HOST_PEND],
-      host_unrc:  this.hosts[HOST_UNRC],
-      host_down:  this.hosts[HOST_DOWN],
+      hostTotal: this.hosts[HOST_TOTAL],
+      hostUp:    this.hosts[HOST_UP],
+      hostPend:  this.hosts[HOST_PEND],
+      hostUnrc:  this.hosts[HOST_UNRC],
+      hostDown:  this.hosts[HOST_DOWN],
 
-      svc_total: this.services[SVC_TOTAL],
-      svc_ok:    this.services[SVC_OK],
-      svc_pend:  this.services[SVC_PEND],
-      svc_unkn:  this.services[SVC_UNKN],
-      svc_warn:  this.services[SVC_WARN],
-      svc_crit:  this.services[SVC_CRIT],
-      svc_unknu: this.services[SVC_UNKNU],
-      svc_warnu: this.services[SVC_WARNU],
-      svc_critu: this.services[SVC_CRITU],
+      svcTotal: this.services[SVC_TOTAL],
+      svcOk:    this.services[SVC_OK],
+      svcPend:  this.services[SVC_PEND],
+      svcUnkn:  this.services[SVC_UNKN],
+      svcWarn:  this.services[SVC_WARN],
+      svcCrit:  this.services[SVC_CRIT],
+      svcUnknu: this.services[SVC_UNKNU],
+      svcWarnu: this.services[SVC_WARNU],
+      svcCritu: this.services[SVC_CRITU],
+
+      svcList: this.svcList,
     };
   }
 }

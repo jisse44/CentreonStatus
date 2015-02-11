@@ -6,9 +6,6 @@
  * Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license).
  */
 
-// By default, refresh every 20 seconds
-const REFRESH_INTERVAL = 20;
-
 // Possible pre-defined date formats
 const DATE_FORMAT = {
   'default':        0,
@@ -25,6 +22,19 @@ const DATE_FORMAT = {
   'isoUtcDateTime': 11,
 };
 
+const SEARCH_LIMIT = {
+  10: 0,
+  20: 1,
+  30: 2,
+  40: 3,
+  50: 4,
+  60: 5,
+  70: 6,
+  80: 7,
+  90: 8,
+  100: 9,
+};
+
 function save_options() {
   if (!window.localStorage) {
     alert('Error local storage is unavailable.');
@@ -34,9 +44,9 @@ function save_options() {
     if (id('password').value != '')
       window.localStorage.password = id('password').value;
 
-    // Append '/' to URL if not given
-    var url = id('url').value;
-    if (url.substr(url.length - 1 ) != '/')
+    // Append '/' to URL if not given (and not empty)
+    var url = id('url').value.trim();
+    if (url != '' && url.substr(url.length - 1 ) != '/')
       url += '/';
     window.localStorage.url = url;
 
@@ -53,6 +63,8 @@ function save_options() {
     }
 
     window.localStorage.addHandled = (id("add-handled").checked === true);
+
+    window.localStorage.limit = id('limit').value;
 
     // Update status to let user know the options were saved
     var status = id('status');
@@ -97,19 +109,21 @@ function restore_options() {
   }
 
   id("add-handled").checked = (window.localStorage.addHandled === "true");
+
+  id('limit').selectedIndex = SEARCH_LIMIT[window.localStorage.limit || LIMIT_DEFAULT];
 }
 
 /**
  * Changes the refresh label to the corresponding value (in seconds).
  */
 function update_refresh() {
-  $('#refrsecs').html($('#refresh').val() + ' seconds');
+  $('#refrsecs').html(i18n('seconds', $('#refresh').val()));
 }
 
 $(document).ready(function() {
   // Load locale strings
-  id('title-options').innerHTML      = i18n('appname') + ' &dash; ' + i18n('options');
-  id('h-options').innerHTML          = i18n('appname') + ' &dash; ' + i18n('options');
+  id('title-options').innerHTML      = APP_NAME + ' &dash; ' + i18n('options');
+  id('h-options').innerHTML          = APP_NAME + ' &dash; ' + i18n('options');
   id('span-main').innerHTML          = i18n('main');
   id('label-username').innerHTML     = i18n('username');
   id('label-password').innerHTML     = i18n('password');
@@ -135,17 +149,19 @@ $(document).ready(function() {
   id('cite-custom').innerHTML        = i18n('custom');
   id('label-add-handled').innerHTML  = i18n('add_handled');
   id('cite-add-handled').innerHTML   = i18n('add_handled_remark');
+  id('label-limit').innerHTML        = i18n('limit');
+  id('cite-limit').innerHTML         = i18n('limit_remark');
   id('button-save').innerHTML        = i18n('save');
-  id('h-footer').innerHTML           = i18n('appTitle');
-  id('p-contribute').innerHTML       = i18n('contribute');
-  id('p-rate').innerHTML             = i18n('rate');
+  id('h-footer').innerHTML           = APP_NAME;
+  id('p-contribute').innerHTML       = i18n('contribute', extlink(APP_MAIL, APP_NAME));
+  id('p-rate').innerHTML             = i18n('rate', extlink(APP_URL, APP_STORE));
 
   // Show tabs
   $('#tabs').tabs();
   restore_options();
   update_refresh();
 
-  $('#button-save').click(save_options);
+  $('#button-save').on('click', save_options);
   $('#refresh').on('change', update_refresh);
 
   // Enable/disable the pre-defined and custom date format fields
@@ -160,4 +176,4 @@ $(document).ready(function() {
   $('img.lazy').lazyload();
 });
 
-//console.log(window.localStorage);
+debug_log(window.localStorage);

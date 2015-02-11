@@ -5,7 +5,7 @@
  */
 
 #options, #options-footer div {
-  max-width: 600px;
+  max-width: 630px;
   margin: 0px auto;
 }
 
@@ -15,25 +15,25 @@
 
 #options-body {
   background: #fdfdfd;
-  margin: 0px; padding: 0px;
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial,Verdana,sans-serif;
+  font-size: 10px;
+  height: 100px;
 }
 
 #options-body h1 {
   background: black;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3C3C3C), to(#111));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3c3c3c), to(#111));
   color: white;
   padding: 10px;
   text-align: center;
 }
 
-#options-body #options-footer {
+#options-footer {
   margin-top: 30px;
-  font-size: 11px;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#619622), to(#fdfdfd));
   padding: 10px;
-  height: 100px;
-  float: justify;
-  text-align: left;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#619622), to(#fdfdfd));
 }
 
 .opt {
@@ -65,8 +65,4 @@ body#options-body label {
 
 button.save {
   margin: 10px;
-}
-
-#status {
-  color: green;
 }

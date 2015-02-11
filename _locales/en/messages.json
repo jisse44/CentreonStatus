@@ -6,7 +6,7 @@
 
   "appDesc": {
     "message": "Displays the Centreon status in a popup.",
-    "description": "A simple extension that helps you watch over your Centreon instance."
+    "description": "A simple extension that helps you watch over your Centreon instance. You can also send quick commands for unhandled service events."
   },
 
   "appTitle": {
@@ -54,22 +54,41 @@
   "december":  { "message": "December" },
 
   "need_setup": {
-    "message": "You need to <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">setup this extension</a> first."
+    "message": "You need to $S$setup this extension$E$ first.",
+    "placeholders": {
+      "s": { "content": "<a class='centreon-link' href='#' data-href='/views/options.html'>" },
+      "e": { "content": "</a>" }
+    }
   },
   "bad_auth": {
-    "message": "Authentication failed. Please check your <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">login credentials</a>."
+    "message": "Authentication failed. Please check your $S$login credentials$E$.",
+    "placeholders": {
+      "s": { "content": "<a class='centreon-link' href='#' data-href='/views/options.html'>" },
+      "e": { "content": "</a>" }
+    }
   },
   "bad_url": {
-    "message": "The defined URL does not exist. Please setup the <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">correct URL</a>."
+    "message": "The defined URL does not exist. Please setup the $S$correct URL$E$.",
+    "placeholders": {
+      "s": { "content": "<a class='centreon-link' href='#' data-href='/views/options.html'>" },
+      "e": { "content": "</a>" }
+    }
   },
   "login_in_progress": {
-    "message": "Please wait, login in progress"
+    "message": "Please wait, login in progress."
   },
   "bad_session": {
     "message": "The current session is invalid. Will try to re-login."
   },
   "unknown_error": {
-    "message": "Unknown error. Please review your <a class=\"centreon-link\" href=\"#\" data-href=\"/views/options.html\">configuration</a>."
+    "message": "Unknown error. Please review your $S$configuration$E$.",
+    "placeholders": {
+      "s": { "content": "<a class='centreon-link' href='#' data-href='/views/options.html'>" },
+      "e": { "content": "</a>" }
+    }
+  },
+  "parser_failed": {
+    "message": "Could not parse the received data."
   },
   "no_data": {
     "message": "Please wait, data not ready yet."
@@ -99,6 +118,14 @@
   "refresh": {
     "message": "Refresh"
   },
+  "seconds": {
+    "message": "$NUM$ seconds",
+    "placeholders": {
+      "num": {
+        "content": "$1"
+      }
+    }
+  },
   "broker": {
     "message": "Broker"
   },
@@ -122,13 +149,19 @@
   "opt_isodatetime":    { "message": "ISO Date Time" },
   "opt_isoutcdatetime": { "message": "ISO UTC Date Time" },
   "custom": {
-    "message": "(used defined)"
+    "message": "(user defined)"
   },
   "add_handled": {
     "message": "Add Handled"
   },
   "add_handled_remark": {
-    "message": "(if checked, acknowledge and in-downtime services will be included)"
+    "message": "(check to include acknowledge and in-downtime services in the summary)"
+  },
+  "limit": {
+    "message": "Search Limit"
+  },
+  "limit_remark": {
+    "message": "(reducing the search limit can improve the extension performance)"
   },
   "save": {
     "message": "Save"
@@ -136,19 +169,22 @@
   "options_save": {
     "message": "Options Saved."
   },
+  "command_send": {
+    "message": "Command sent."
+  },
   "contribute": {
     "message": "If you wish to contribute, please submit ideas, bug reports or patches to $APP_NAME$ support.",
     "placeholders": {
       "app_name": {
-        "content": "<a href=\"mailto:centreon-status@morgado.ch\">Centreon Status</a>"
+        "content": "$1"
       }
     }
   },
   "rate": {
-    "message": "Rate $APP_NAME$ on Chrome Webstore.",
+    "message": "Rate us on $STORE_NAME$.",
     "placeholders": {
-      "app_name": {
-        "content": "<a href=\"https://chrome.google.com/webstore/detail/jdpjdebckgkpailbnjhgjafagmkgdkhb\">Centreon Status</a>"
+      "store_name": {
+        "content": "$1"
       }
     }
   },
@@ -163,7 +199,12 @@
     "message": "Unhandled"
   },
   "aboutapp": {
-    "message": "Centreon Status is a simple extension for Google Chrome&#8482; that helps you watch over your Centreon instance."
+    "message": "$APP_NAME$ is a simple extension for Google Chrome&#8482; that helps you watch over your Centreon instance.",
+    "placeholders": {
+      "app_name": {
+        "content": "$1"
+      }
+    }
   },
   "license": {
     "message": "This software is provided &quot;AS IS&quot;, without warranty of any kind, express or implied, including but
@@ -173,13 +214,18 @@
     other daelings in the software."
   },
   "author": {
-    "message": "$COPYRIGHT$, $AUTHOR$ (based on Icinga Chrome Status extension).",
+    "message": "$AUTHOR$ (based on Icinga Chrome Status extension). ",
     "placeholders": {
-      "copyright": {
-        "content": "&copy;2014, 2015"
-      },
       "author": {
-        "content": "<a class=\"ext\" href=\"mailto:centreon-status@morgado.ch\">Jorge Morgado</a>"
+        "content": "$1"
+      }
+    }
+  },
+  "devel": {
+    "message": "Have an idea for a new feature? Found a bug? Want to contribute? Get started with $APP_NAME$ development.",
+    "placeholders": {
+      "app_name": {
+        "content": "$1"
       }
     }
   },
@@ -192,8 +238,11 @@
   },
   "host_states":    { "message": "Hosts Status" },
   "service_states": { "message": "Services Status" },
+  "host_name":      { "message": "Host name" },
+  "service_name":   { "message": "Service name" },
   "hosts":    { "message": "Hosts" },
   "services": { "message": "Services" },
+  "status":   { "message": "Status" },
   "up":          { "message": "Up" },
   "down":        { "message": "Down" },
   "unreachable": { "message": "Unreachable" },
@@ -218,5 +267,26 @@
   },
   "check_hosts_services": {
     "message": "Check Hosts and Services status"
-  }
+  },
+  "sort_hostname": { "message": "Sort by hostname" },
+  "sort_svcname":  { "message": "Sort by service description" },
+  "sort_status":   { "message": "Sort by status" },
+  "no_undl_services": {
+    "message": "Hooray, no unhandled services!"
+  },
+  "action_more":            { "message": "More actions..." },
+  "action_svc_check":       { "message": "Schedule immediate check" },
+  "action_svc_check_force": { "message": "Schedule immediate check (forced)" },
+  "action_svc_ack":         { "message": "Services: Acknowledge" },
+  "action_svc_unack":       { "message": "Services: Disacknowledge" },
+  "action_svc_notif_e":     { "message": "Services: Enable notification" },
+  "action_svc_notif_d":     { "message": "Services: Disable notification" },
+  "action_svc_check_e":     { "message": "Services: Enable check" },
+  "action_svc_check_d":     { "message": "Services: Disable check" },
+  "action_host_ack":        { "message": "Hosts: Acknowledge" },
+  "action_host_unack":      { "message": "Hosts: Disacknowledge" },
+  "action_host_notif_e":    { "message": "Hosts: Enable notification" },
+  "action_host_notif_d":    { "message": "Hosts: Disable notification" },
+  "action_host_check_e":    { "message": "Hosts: Enable check" },
+  "action_host_check_d":    { "message": "Hosts: Disable check" }
 }
