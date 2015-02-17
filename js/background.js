@@ -200,8 +200,8 @@ var bg = {
       //$ci      = $(this).find('ci'),      // criticality icon
       //$cih     = $(this).find('cih'),     // criticality name
       $ne      = $(this).find('ne'),      // service notifications enabled
-      //$pa      = $(this).find('pa'),      // service problem has been acknowledged
-      //$pc      = $(this).find('pc'),      // service passive checks enabled
+      $pa      = $(this).find('pa'),      // service problem has been acknowledged
+      $pc      = $(this).find('pc'),      // service passive checks enabled
       $ac      = $(this).find('ac'),      // service active checks enabled
       //$eh      = $(this).find('eh'),      // service event handler enabled
       //$is      = $(this).find('is'),      // service is flapping
@@ -215,9 +215,9 @@ var bg = {
       //$sau     = $(this).find('sau'),     // service action URL
       //$sn      = $(this).find('sn'),      // service notes
       //$fd      = $(this).find('fd'),      // service flap detection enabled
-      //$ha      = $(this).find('ha'),      // host problem has been acknowledged
+      $ha      = $(this).find('ha'),      // host problem has been acknowledged
       $hae     = $(this).find('hae'),     // host active checks enabled
-      //$hpe     = $(this).find('hpe'),     // host passive checks enabled
+      $hpe     = $(this).find('hpe'),     // host passive checks enabled
       //$nc      = $(this).find('nc'),      // service next check
       //$lc      = $(this).find('lc'),      // service last check
       $d       = $(this).find('d');       // duration
@@ -226,15 +226,19 @@ var bg = {
       //$svc_index = $(this).find('svc_index'); // index?
 
       bg.centreon.addService([
-        item_class,
-        $hn.text(),
-        $hs.text(),
-        $sd.text(),
-        $cs.text(),
-        $d.text(),
-        $ne.text(),
-        $ac.text(),
-        $hae.text()
+        item_class,   // L_CLASS
+        $hn.text(),   // L_HOSTNAME
+        $hs.text(),   // L_HOSTSTATE
+        $sd.text(),   // L_SVCNAME
+        $cs.text(),   // L_SVCSTATE
+        $d.text(),    // L_DURATION
+        $ne.text(),   // L_SVCNOTIF (if == 0 => service notifications disabled)
+        $pa.text(),   // L_SVCACK   (if == 1 => service problem is acknowledged)
+        $ac.text(),   // L_SVCACHK  (if == 0 => service active checks disabled)
+        $pc.text(),   // L_SVCPCHK  (if == 1 => service passive checks enabled)
+        $ha.text(),   // L_HOSTACK  (if == 1 => host problem is acknowledged)
+        $hae.text(),  // L_HOSTACHK (if == 0 => host active checks disabled)
+        $hpe.text()   // L_HOSTACHK (if == 1 => host passive checks enabled)
       ]);
     });
 
@@ -275,6 +279,7 @@ var bg = {
               } else if (request[HTTP_ACTION] == 'services') {
                 bg.state = bg.processServices(response.responseText);
               //} else if (request[HTTP_ACTION] == 'command') {
+              // Nothing to do there!
               }
             } else {
               bg.state = bg.processBadSession();
@@ -358,6 +363,8 @@ var bg = {
 
   /**
    * Reload and display new values.
+   * TODO Provide an arg to refreshData which only refreshes the active tab.
+   * TODO Must care for tab switches which might be tricky on all cases.
    */
   refreshData: function() {
     // URL from extension setup
@@ -402,7 +409,8 @@ var bg = {
           url + 'include/monitoring/status/Services/xml/' + broker + '/serviceXML.php',
           {
             sid: bg.sid,
-            o: 'svc_unhandled' + bg.searchStatus,
+            //o: 'svc_unhandled' + bg.searchStatus,
+            o: (bg.searchStatus.trim() == '' ? 'svcpb' : 'svc' + bg.searchStatus),
             limit: window.localStorage.limit || LIMIT_DEFAULT,
             sort_type: bg.sortColumn,
             order: bg.sortOrder,
@@ -451,13 +459,6 @@ var bg = {
 
       var response = {};
 
-      // TODO Provide an arg to refreshData which only refreshes the active tab.
-      // TODO Must care for tab switches which might be tricky on all cases.
-
-      // FIXME When a we enter a filter for host, service or status and
-      // FIXME then close the pop-up. When we re-open the pop-up the
-      // FIXME filter is lost but the values are still the ones filtered.
-
       switch (request.type) {
         // Get stored data
         case REQ_GET_DATA:
@@ -465,6 +466,13 @@ var bg = {
           response = bg.centreon.toJSON();
           response.sortColumn = bg.sortColumn;
           response.sortOrder = bg.sortOrder;
+          break;
+
+        // Get stored search criteria
+        case REQ_GET_FILTER:
+          response.searchHost = bg.searchHost;
+          response.searchService = bg.searchService;
+          response.searchStatus = bg.searchStatus;
           break;
 
         // Refresh data

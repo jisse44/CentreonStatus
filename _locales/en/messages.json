@@ -198,6 +198,9 @@
   "unhandled": {
     "message": "Unhandled"
   },
+  "problems": {
+    "message": "Problems"
+  },
   "aboutapp": {
     "message": "$APP_NAME$ is a simple extension for Google Chrome&#8482; that helps you watch over your Centreon instance.",
     "placeholders": {
@@ -272,7 +275,7 @@
   "sort_svcname":  { "message": "Sort by service description" },
   "sort_status":   { "message": "Sort by status" },
   "no_undl_services": {
-    "message": "Hooray, no unhandled services!"
+    "message": "Hooray, no problems here!"
   },
   "action_more":            { "message": "More actions..." },
   "action_svc_check":       { "message": "Schedule immediate check" },

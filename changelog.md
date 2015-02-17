@@ -1,15 +1,16 @@
 Changelog
 =========
 
-0.0.4 -   . 01. 2015
+0.0.4 - 17. 02. 2015
 --------------------
 * Refresh button now truly refreshes the current tab
-* Unhandled events tab with options to:
+* Service problems tab with options to:
   - select all events
   - order ascending/descending by hostname, service name and status
   - filter events by hostname, service name and status
   - send commands to hosts and services
 * Many smalls optimizations
+* Reduce images sizes
 * And some bug fixes
 
 0.0.3 - 12. 01. 2015

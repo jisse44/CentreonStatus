@@ -5,7 +5,7 @@
  */
 
 function goto(url) {
-  debug_log('Opening URL ' + url);
+  //debug_log('Opening URL ' + url);
   chrome.tabs.create({ url: url });
 
   if (typeof arguments[1] != 'undefined' && arguments[1] === true)
@@ -63,9 +63,9 @@ function show() {
       // Poller states
         '<h3>' + i18n('poller_states') + '</h3><table>'
       + '<tr><td colspan="2" class="normal">' + i18n('last_update') + convertTimestamp(response.ts)
-      + '</td></tr><tr><td class="' + bgColor(response.pollerState)   + '" width="1px"><img class="clock" /></td><td class="normal">'     + response.pollerErrState
-      + '</td></tr><tr><td class="' + bgColor(response.pollerLatency) + '" width="1px"><img class="gear" /></td><td class="normal">'      + response.pollerErrLatency
-      + '</td></tr><tr><td class="' + bgColor(response.pollerActive)  + '" width="1px"><img class="data_into" /></td><td class="normal">' + response.pollerErrActive
+      + '</td></tr><tr><td class="' + bgColor(response.pollerState)   + '" width="1px"><img class="clock"/></td><td class="normal">'     + response.pollerErrState
+      + '</td></tr><tr><td class="' + bgColor(response.pollerLatency) + '" width="1px"><img class="gear"/></td><td class="normal">'      + response.pollerErrLatency
+      + '</td></tr><tr><td class="' + bgColor(response.pollerActive)  + '" width="1px"><img class="data_into"/></td><td class="normal">' + response.pollerErrActive
       + '</td></tr></table><br/>'
       // Host counters
       + '<h3>' + i18n('host_states') + '</h3><table>'
@@ -103,21 +103,21 @@ function show() {
       + '">' + response.message + '</a></p>');
   }
 
-  var unhandled = function (response) {
-    $('#outputUnhandled').show();
+  var problems = function (response) {
+    $('#outputProblems').show();
 
     var headerHost    = i18n('hosts');
     var headerService = i18n('services');
     var headerStatus  = i18n('status');
 
     // Remove all rows before adding new ones
-    $("#tbodyUnhandled").empty();
+    $("#tbodyProblems").empty();
 
-    // Do we have at least one unhandled events to process?
+    // Do we have at least one service problems events to process?
     var haveEvents = (response.svcList != undefined && response.svcList.length > 0);
 
     if (haveEvents) {
-      var order = ' <img class="sort' + response.sortOrder + '" />';
+      var order = ' <img class="sort' + response.sortOrder + '"/>';
 
       switch (response.sortColumn) {
         case COL_SVCNAME:  headerService += order; break;
@@ -165,56 +165,68 @@ function show() {
             '<span class="warntext">' + hostlast + '</span>' :
             hostlast);
 
-            // If host checks are OFF (disabled), show an icon for it
-            if (row[L_HOSTCHECK] == OFF) {
+            // If host notif, checks or ack are ON/OFF, show an icon for it
+            var h_ack  = (row[L_HOSTACK]  == ON),
+                h_achk = (row[L_HOSTACHK] == OFF),
+                h_pchk = (row[L_HOSTPCHK] == ON);
+
+            if (h_ack || h_achk || (h_achk && h_pchk)) {
               h_col_span = '1';
-              h_col_icon = '<td class="iconcell"><img class="gears_stop" /></td>';
+              h_col_icon = '<td class="iconcell">';
+
+              if (h_ack)  h_col_icon += '<img class="worker"/>';
+              if (h_achk) h_col_icon += '<img class="gears_' + (h_pchk ? 'pause' : 'stop') + '"/>'
+
+              h_col_icon += '</td>';
             }
         }
 
-        // If service notifications or checks are OFF also show an icon for it
-        if (row[L_SVCNOTIF] == OFF || row[L_SVCCHECK] == OFF) {
+        // If service notif, checks or ack are ON/OFF, show an icon for it
+        var s_notif = (row[L_SVCNOTIF] == OFF),
+            s_ack   = (row[L_SVCACK]   == ON),
+            s_achk  = (row[L_SVCACHK]  == OFF),
+            s_pchk  = (row[L_SVCPCHK]  == ON);
+
+        if (s_notif || s_ack || s_achk || (s_achk && s_pchk)) {
           s_col_span = '1';
           s_col_icon = '<td class="iconcell">';
 
-          if (row[L_SVCCHECK] == OFF) s_col_icon += '<img class="gears_stop" />';
-          if (row[L_SVCNOTIF] == OFF) s_col_icon += '<img class="noloudspeaker" />';
+          if (s_ack)   s_col_icon += '<img class="worker"/>';
+          if (s_achk)  s_col_icon += '<img class="gears_' + (s_pchk ? 'pause' : 'stop') + '"/>'
+          if (s_notif) s_col_icon += '<img class="noloudspeaker"/>';
 
           s_col_icon += '</td>';
         }
 
-        $('#tableUnhandled > tbody:last').append(
+        $('#tableProblems > tbody:last').append(
             '<tr class="' + row[L_CLASS] + '">'
-          + '<td class="center"><input type="checkbox" id="' + row[L_HOSTNAME] + ';' + row[L_SVCNAME] + '" name="select" /></td>'
+          + '<td class="center"><input type="checkbox" id="' + row[L_HOSTNAME] + ';' + row[L_SVCNAME] + '" name="select"/></td>'
           + '<td class="left" colspan="' + h_col_span +'">' + hostname + '</td>'
           + h_col_icon
           + '<td class="left" colspan="' + s_col_span + '">' + row[L_SVCNAME] + '</td>'
           + s_col_icon
-          + '<td class="' + classStatus(row[L_SVCSTATE]) + '">' + row[L_DURATION] + '</td>'
+          + '<td class="' + classStatus(row[L_SVCSTATE]) + '">' + (row[L_DURATION].trim() == '' ? '...' : row[L_DURATION]) + '</td>'
           + '</tr>'
         );
       }
     } else {
-      // No unhandled services found
-      $('#tableUnhandled > tbody:last').append(
+      // No service problems found
+      $('#tableProblems > tbody:last').append(
         '<tr class="list_one">'
-        + '<td class="center" colspan="5">' + i18n('no_undl_services') + '</td>'
+        + '<td class="center" colspan="6">' + i18n('no_undl_services') + '</td>'
         + '</tr>'
       );
     }
 
     // Enable (disable) form elements if there's something (nothing) to process
-    $('#check-all').prop( "disabled", !haveEvents );
-    $('#host-search').prop( "disabled", !haveEvents );
-    $('#srv-search').prop( "disabled", !haveEvents );
-    $('#select-status').prop( "disabled", !haveEvents );
-    $('#select-action').prop( "disabled", !haveEvents );
+    $('#check-all').prop('disabled', !haveEvents);
+    $('#select-action').prop('disabled', !haveEvents);
   }
 
   chrome.extension.sendRequest({ type: REQ_GET_DATA }, function(response) {
     if (response.state == STATE_ALL_OK) {
       overview(response);
-      unhandled(response);
+      problems(response);
     } else {
       //debug_log('Status from background: ' + response.state);
       switch (response.state) {
@@ -229,7 +241,7 @@ function show() {
       }
 
       $('#outputOverview').html(msg);
-      $('#outputUnhandled').hide();
+      $('#outputProblems').hide();
     }
 
     // Handle links
@@ -240,34 +252,51 @@ function show() {
 
 $(document).ready(function() {
   // Load locale strings
-  id('span-overview').innerHTML  = i18n('overview');
-  id('span-unhandled').innerHTML = i18n('unhandled');
-  id('span-about').innerHTML     = i18n('about');
-  id('refresh-data').title       = i18n('refresh');
-  id('h-title').innerText        = APP_NAME;
-  id('a-options').innerHTML      = i18n('options');
-  id('p-about').innerHTML        = i18n('aboutapp', APP_NAME);
-  id('p-license').innerHTML      = i18n('license');
-  id('p-author').innerHTML       =
+  id('span-overview').innerHTML = i18n('overview');
+  id('span-problems').innerHTML = i18n('problems');
+  id('span-about').innerHTML    = i18n('about');
+  id('refresh-data').title      = i18n('refresh');
+  id('h-title').innerText       = APP_NAME;
+  id('a-options').innerHTML     = i18n('options');
+  id('p-about').innerHTML       = i18n('aboutapp', APP_NAME);
+  id('p-license').innerHTML     = i18n('license');
+  id('p-author').innerHTML      =
       APP_COPYRIGHT
     + i18n('author', extlink(APP_MAIL, APP_AUTHOR))
     + i18n('rate', extlink(APP_URL, APP_STORE));
-  id('p-devel').innerHTML        = i18n('devel', extlink(APP_DEVEL, APP_NAME));
-  id('opt-warning').innerHTML    = i18n('warning');
-  id('opt-critical').innerHTML   = i18n('critical');
-  id('opt-unknown').innerHTML    = i18n('unknown');
-  id('host-search').placeholder  = i18n('host_name');
-  id('srv-search').placeholder   = i18n('service_name');
+  id('p-devel').innerHTML       = i18n('devel', extlink(APP_DEVEL, APP_NAME));
+  id('host-search').placeholder = i18n('host_name');
+  id('srv-search').placeholder  = i18n('service_name');
 
   // Refresh button
   $('#refresh-data').on('click', function() {
     refresh({ resetTimer: true });
   });
 
-  // Add click event to check/uncheck all unhandled table rows
+  // Add click event to check/uncheck all service problems table rows
   $('#check-all').on('click', function(e) {
     var table = $(e.target).closest('table');
     $('td input:checkbox', table).prop('checked', this.checked);
+  });
+
+  // Build the select box for the status filter
+  $([
+    { value: '',          text: '' },
+    { value: '_warning',  text: i18n('warning') },
+    { value: '_critical', text: i18n('critical') },
+    { value: '_unknown',  text: i18n('unknown') },
+    { value: '_pending',  text: i18n('pending') },
+  ]).each(function() {
+    $('#select-status').append($("<option>")
+      .attr('value', this.value)
+      .text(this.text));
+  });
+
+  // Get the current filter criteria and set the values on each for object
+  chrome.extension.sendRequest({ type: REQ_GET_FILTER }, function(response) {
+    $('#host-search').val(response.searchHost);
+    $('#srv-search').val(response.searchService);
+    $('#select-status option[value="' + response.searchStatus + '"]').prop('selected', true);
   });
 
   // Filter services table when hostname, service name or status changes
@@ -282,7 +311,7 @@ $(document).ready(function() {
   });
 
   // Build the select box for the action commands
-  var sel_action = [
+  $([
     { value: CMD_NO_ACTION,    text: i18n('action_more') },
     { value: CMD_CHECK,        text: i18n('action_svc_check') },
     { value: CMD_CHECK_FORCE,  text: i18n('action_svc_check_force') },
@@ -298,8 +327,7 @@ $(document).ready(function() {
     { value: CMD_HOST_NOTIF_D, text: i18n('action_host_notif_d') },
     { value: CMD_HOST_CHECK_E, text: i18n('action_host_check_e') },
     { value: CMD_HOST_CHECK_D, text: i18n('action_host_check_d') },
-  ];
-  $(sel_action).each(function() {
+  ]).each(function() {
     $('#select-action').append($("<option>")
       .attr('value', this.value)
       .text(this.text));

@@ -20,7 +20,7 @@
 <div id="tabs">
   <ul>
     <li><a href="#tab-1"><span id="span-overview">Overview</span></a></li>
-    <li><a href="#tab-2"><span id="span-unhandled">Unhandled</span></a></li>
+    <li><a href="#tab-2"><span id="span-problems">Problems</span></a></li>
     <li><a href="#tab-3"><span id="span-about">About</span></a></li>
   </ul>
 
@@ -29,8 +29,8 @@
   </div>
 
   <div id="tab-2">
-    <div id="outputUnhandled">
-      <table width="100%" id="tableUnhandled">
+    <div id="outputProblems">
+      <table width="100%" id="tableProblems">
       <thead>
         <tr>
           <td class="head"></td>
@@ -42,17 +42,12 @@
           <td class="head"><input type="checkbox" name="check-all" id="check-all"/></td>
           <td class="head" colspan="2"><input type="text" name="host-search" id="host-search" placeholder="Host" class="searchfilter"/></td>
           <td class="head" colspan="2"><input type="text" name="srv-search" id="srv-search" placeholder="Service" class="searchfilter"/></td>
-          <td class="head"><select name="select-status" id="select-status" class="searchfilter">
-            <option value="" id="opt-none" selected></option>
-            <option value="_warning" id="opt-warning">Warning</option>
-            <option value="_critical" id="opt-critical">Critical</option>
-            <option value="_unknown" id="opt-unknown">Unknown</option>
-          </select></td>
+          <td class="head"><select name="select-status" id="select-status" class="searchfilter"></select></td>
         </tr>
       </thead>
-      <tbody id="tbodyUnhandled"></tbody>
+      <tbody id="tbodyProblems"></tbody>
       </table>
-      <br />
+      <br/>
       <select name="select-action" id="select-action"></select>
       <span id="status"></span>
     </div>

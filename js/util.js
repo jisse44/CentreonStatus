@@ -13,8 +13,7 @@ const APP_DEVEL     = 'https://github.com/jorgemorgado/CentreonStatus';
 const APP_STORE     = 'Chrome Webstore';
 const APP_URL       = 'https://chrome.google.com/webstore/detail/jdpjdebckgkpailbnjhgjafagmkgdkhb';
 
-// TODO Set this to false when "production ready"
-var debug = true;
+var debug = false;
 
 // By default, refresh every 20 seconds
 const REFRESH_INTERVAL = 20;
@@ -26,6 +25,7 @@ const LIMIT_DEFAULT = 20;
 const REQ_GET_DATA      = 0;
 const REQ_REFRESH_DATA  = 1;
 const REQ_ACTION_CMD    = 2;
+const REQ_GET_FILTER    = 3;
 
 // Sort fields
 const SORT_DEFAULT  = 0;
@@ -67,15 +67,19 @@ const CMD_HOST_CHECK_E = 92; // Host enable check
 const CMD_HOST_CHECK_D = 93; // Host disable check
 
 // Services list table
-const L_CLASS     = 0;
-const L_HOSTNAME  = 1;
-const L_HOSTSTATE = 2;
-const L_SVCNAME   = 3;
-const L_SVCSTATE  = 4;
-const L_DURATION  = 5;
-const L_SVCNOTIF  = 6;
-const L_SVCCHECK  = 7;
-const L_HOSTCHECK = 8;
+const L_CLASS     =  0;
+const L_HOSTNAME  =  1;
+const L_HOSTSTATE =  2;
+const L_SVCNAME   =  3;
+const L_SVCSTATE  =  4;
+const L_DURATION  =  5;
+const L_SVCNOTIF  =  6;
+const L_SVCACK    =  7;
+const L_SVCACHK   =  8;
+const L_SVCPCHK   =  9;
+const L_HOSTACK   = 10;
+const L_HOSTACHK  = 11;
+const L_HOSTPCHK  = 12;
 
 // Status abbreviated
 const OK   = 'ok';

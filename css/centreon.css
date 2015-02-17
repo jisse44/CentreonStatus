@@ -49,6 +49,9 @@ h3 { margin: 0px 0px 3px 0px; }
 .list_down       { background-color: #ffb2b2; }
 .list_down:hover { background-color: #ffd1d1; }
 
+.line_ack       { background-color: #faed60; }
+.line_ack:hover { background-color: #faed60; }
+
 /* Make search filter form objects width to 100% of the table's column.
 Although, to avoid that the object will go over the table's cell border
 (which looks ugly), use the CSS3's box-sizing property to include the
@@ -105,11 +108,13 @@ a.uglyhack {
 
 .clock { content:url('/images/clock.png'); }
 .gear { content:url('/images/gear.png'); }
+.gears_stop { content:url('/images/gears_stop.png'); }
+.gears_pause { content:url('/images/gears_pause.png'); }
 .data_into { content:url('/images/data_into.png'); }
 .sortASC { content:url('/images/sort_asc.png'); }
 .sortDESC { content:url('/images/sort_desc.png'); }
 .noloudspeaker { content:url('/images/noloudspeaker.png'); }
-.gears_stop { content:url('/images/gears_stop.png'); }
+.worker { content:url('/images/worker.png'); }
 
 #status {
   color: green;
