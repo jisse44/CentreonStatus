@@ -1,17 +1,17 @@
 /**
  * utils.js
  *
- * Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license).
+ * Copyright (c)2015 Jorge Morgado - (c)2017 jisse44. All rights reserved (MIT license).
  */
 
 // Useful extension constants
 const APP_NAME      = i18n('appName');
-const APP_COPYRIGHT = '&copy;2014, 2015 ';
-const APP_MAIL      = 'mailto:centreon-status@morgado.ch';
-const APP_AUTHOR    = 'Jorge Morgado';
-const APP_DEVEL     = 'https://github.com/jorgemorgado/CentreonStatus';
-const APP_STORE     = 'Chrome Webstore';
-const APP_URL       = 'https://chrome.google.com/webstore/detail/jdpjdebckgkpailbnjhgjafagmkgdkhb';
+const APP_COPYRIGHT = '&copy;2014-2017 ';
+const APP_MAIL      = 'mailto:jc85@free.fr';
+const APP_AUTHOR    = 'jisse44';
+const APP_DEVEL     = 'https://github.com/jisse44/CentreonStatus';
+const APP_STORE     = 'Firefox Add-Ons';
+const APP_URL       = 'https://addons.mozilla.org/fr/firefox/user/jisse44/';
 
 var debug = false;
 

@@ -1,7 +1,7 @@
 /**
  * background.js
  *
- * Copyright (c)2015 Jorge Morgado. All rights reserved (MIT license).
+ * Copyright (c)2015 Jorge Morgado - (c)2017 jisse44. All rights reserved (MIT license).
  */
 
 const ISTAT_BG_VERSION = 0.1;

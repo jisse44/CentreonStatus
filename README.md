@@ -1,19 +1,17 @@
-Centreon Status for Google Chrome™
+Centreon Status for Firefox
 ==================================
 
-Centreon Status is simple extension for Google Chrome™ that helps you watch
-over your Centron instance.
+Centreon Status is simple extension for Firefox that helps you watch
+over your Centron instance (need Centreon Web 2.8.14 minimum).
 
 Features
 --------
-- Support Centreon Broker or NDOUtils
-- Show summary overview (pollers, hosts and services status)
-- Show alert counter status (critical, warning, unreachable, unknown or ok)
-- Ability to set data refresh interval
+- TODO: be Centreon API Rest compliant (https://documentation.centreon.com/docs/centreon/en/2.8.x/api/api_rest/index.html)
 
 Contributors
 ------------
-- Jorge Morgado (centreon-status (at) morgado (dot) ch)
+- Forked by jisse44 for Mozilla Firefox
+- Originally created by Jorge Morgado (centreon-status (at) morgado (dot) ch) for Google Chrome™
 - Based on the IcingaChromedStatus plugin (https://github.com/kepi/IcingaChromedStatus)
 
 License

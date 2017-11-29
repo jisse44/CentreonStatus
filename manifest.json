@@ -1,35 +1,62 @@
 {
-  "manifest_version": 2,
-  "name": "__MSG_appName__",
-  "version": "0.0.4",
-  "description": "__MSG_appDesc__",
-  "default_locale": "en",
+	"manifest_version": 2,
+	"default_locale": "en",
+	"name": "__MSG_appName__",
+	"version": "1.0",
+	"version_name": "1.0 beta",
+	"author": "JC Prin",
+	"description": "__MSG_appDesc__",
 
-  "icons": {
-    "48": "images/icon_48.png",
-    "128": "images/icon_128.png",
-    "160": "images/icon_160.png"
-  },
+	"applications": {
+		"gecko": {
+			"id": "centreonstatus@jcp",
+			"strict_min_version": "54.0"
+		}
+	},
 
-  "browser_action": {
-    "default_title": "__MSG_appTitle__",
-    "default_icon": {
-      "19": "images/icon.png",
-      "38": "images/icon_38.png"
-    },
-    "default_popup": "views/popup.html"
-  },
+	"background": {
+		"page": "views/background.html",
+		"persistent": true,
+		"scripts": [ "js/jquery/jquery-2.1.0.min.js", "js/jquery/jquery.lazyload.min.js", "js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js", "js/background.js", "js/centreon.js" ]
+	},
 
-  "permissions": [
-    "tabs",
-    "http://*/",
-    "https://*/"
-  ],
+	"content_scripts": [ {
+		"matches": [ "<all_urls>" ],
+		"js": [ "js/jquery/jquery-2.1.0.min.js", "js/jquery/jquery.lazyload.min.js", "js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js", "js/centreon.js", "js/dateformat.js", "js/options.js", "js/popup.js", "js/util.js"],
+		"css": ["css/centreon.css", "css/options.css"],
+		"run_at": "document_end",
+		"all_frames": true
+	} ],
 
-  "options_page": "views/options.html",
+	"web_accessible_resources": [
+		"images/*.png",
+		"css/*.css"
+	],
 
-  "background": {
-    "page": "views/background.html",
-    "persistent": true
-  }
+	"permissions": [
+		"tabs",
+		"http://*/",
+		"https://*/"
+	],
+
+	"browser_action": {
+		"browser_style": true,
+		"default_title": "Centreon Status",
+		"default_popup": "views/popup.html",
+		"default_icon": {
+			"19": "images/icon.png",
+			"38": "images/icon_38.png"
+		}
+	},
+
+	"icons": {
+		"48": "images/icon_48.png",
+		"128": "images/icon_128.png",
+		"160": "images/icon_160.png"
+	},
+
+	"options_ui": {
+		"page": "views/options.html"
+	}
+
 }

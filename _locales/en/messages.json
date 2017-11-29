@@ -1,12 +1,10 @@
 {
   "appName": {
-    "message": "Centreon Status",
-    "description": "A simple extension that helps you watch over your Centreon instance."
+    "message": "Centreon Status"
   },
 
   "appDesc": {
-    "message": "Displays the Centreon status in a popup.",
-    "description": "A simple extension that helps you watch over your Centreon instance. You can also send quick commands for unhandled service events."
+    "message": "Displays the Centreon status in a popup."
   },
 
   "appTitle": {
@@ -202,7 +200,7 @@
     "message": "Problems"
   },
   "aboutapp": {
-    "message": "$APP_NAME$ is a simple extension for Google Chrome&#8482; that helps you watch over your Centreon instance.",
+    "message": "$APP_NAME$ is a simple extension for Firefox; that helps you watch over your Centreon instance.",
     "placeholders": {
       "app_name": {
         "content": "$1"
@@ -210,14 +208,10 @@
     }
   },
   "license": {
-    "message": "This software is provided &quot;AS IS&quot;, without warranty of any kind, express or implied, including but
-    not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no
-    event shall the authors or copyright holders be liabe for any claim, damages or other liability, whether in an
-    action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or
-    other daelings in the software."
+    "message": "This software is provided AS IS, without warranty of any kind, express or implied, including but \n not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no \nevent shall the authors or copyright holders be liabe for any claim, damages or other liability, whether in an \naction of contract, tort or otherwise, arising from, out of or in connection with the software or the use or \nother daelings in the software."
   },
   "author": {
-    "message": "$AUTHOR$ (based on Icinga Chrome Status extension). ",
+    "message": "$AUTHOR$ (based on jorgemorgado Google Chrome extension). ",
     "placeholders": {
       "author": {
         "content": "$1"
